@@ -1,0 +1,40 @@
+import { createContext, useContext, useState } from 'react'
+
+const CycleContext = createContext({} as any)
+
+export function NewCycleForm() {
+  const { abobora, setAbobora } = useContext(CycleContext)
+
+  return (
+    <>
+      <h1>NewCycleForm: {abobora}</h1>
+      <button onClick={() => setAbobora((prevState) => prevState + 1)}>
+        More +
+      </button>
+      <button onClick={() => setAbobora((prevState) => prevState - 1)}>
+        Less -
+      </button>
+    </>
+  )
+}
+
+export function Cowntdown() {
+  const { abobora } = useContext(CycleContext)
+
+  return <h1>Cowntdown: {abobora}</h1>
+}
+
+export function Home() {
+  const [activeCycle, setActiveCycle] = useState(0)
+
+  return (
+    <CycleContext.Provider
+      value={{ abobora: activeCycle, setAbobora: setActiveCycle }}
+    >
+      <div>
+        <NewCycleForm />
+        <Cowntdown />
+      </div>
+    </CycleContext.Provider>
+  )
+}
